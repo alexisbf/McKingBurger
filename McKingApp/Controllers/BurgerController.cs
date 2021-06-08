@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DomainModel;
+using McKingApp.Repository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,16 +11,23 @@ namespace McKingApp.Controllers
 {
     public class BurgerController : Controller
     {
+        private ICrudAsync<Burger> repository;
+        public BurgerController(ICrudAsync<Burger> repository)
+        {
+            this.repository = repository;
+        }
+        
         // GET: BurgerController
         public ActionResult Index()
         {
-            return View();
+            return View(this.repository.ReadAll() is null ? new List<Burger>() : this.repository.ReadAll().ToList());
         }
 
         // GET: BurgerController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var read = await repository.ReadAsync(id);
+            return View(read);
         }
 
         // GET: BurgerController/Create
@@ -30,58 +39,50 @@ namespace McKingApp.Controllers
         // POST: BurgerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(Burger burger)
         {
-            try
+            if (ModelState.IsValid)
             {
+                await repository.CreateAsync(burger);
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(burger);                      
         }
 
         // GET: BurgerController/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var edit = await repository.ReadAsync(id);
+            return View(edit);
         }
 
         // POST: BurgerController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, Burger burger)
         {
-            try
+            if (ModelState.IsValid)
             {
+                await repository.UpdateAsync(burger);
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(burger);
         }
 
         // GET: BurgerController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            return View();
+            var delete = await repository.ReadAsync(id);
+            return View(delete);
         }
 
         // POST: BurgerController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await repository.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

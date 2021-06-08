@@ -30,7 +30,7 @@ namespace McKingApp
         {
             services.AddScoped<ICrud<Menu>, MenuRepository>();
             services.AddScoped<ICrud<Beverage>, BeverageRepository>();
-            services.AddScoped<ICrud<Burger>, BurgerRepository>();
+            services.AddScoped<ICrudAsync<Burger>, BurgerRepository>();
             services.AddControllersWithViews(conf =>
             {
                 conf.ModelBinderProviders[4] = new FloatingTypeModelBinderProvider();

@@ -11,15 +11,10 @@ namespace ConsoleAppTest
         {
             using (var context = new McKingBurgerContext())
             {
-                context.Initialize();
-                foreach(var item in context.Menus
-                    .Include(m => m.Burger)
-                    .Include(m => m.Beverage)
-                    .Include(m => m.Dessert)
-                    .Include(m => m.Description)
-                    )
+                context.Initialize(true);
+                foreach(var item in context.Burgers)
                 {
-                    Console.WriteLine($"{item.Name}, {item.Burger.Name}, {item.Beverage.Name}");
+                    Console.WriteLine($"{item.Name}");
                 }
             } 
         }

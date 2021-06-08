@@ -43,7 +43,6 @@ namespace McKingApp.Controllers
             {
                 repository.Create(beverage);
                 return RedirectToAction(nameof(Index));
-
             }
             return View(beverage);
         }
