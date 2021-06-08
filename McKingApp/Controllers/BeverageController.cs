@@ -72,7 +72,7 @@ namespace McKingApp.Controllers
         // GET: BeverageController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(db.Beverages.Find(id));
+            return View(this.db.Beverages.Find(id));
         }
 
         // POST: BeverageController/Delete/5
@@ -80,13 +80,10 @@ namespace McKingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, Beverage beverage)
         {
-            if (ModelState.IsValid)
-            {
-                db.Beverages.Remove(beverage);
-                db.SaveChanges();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(beverage);
+            Beverage toFind = this.db.Beverages.Find(id);
+            db.Beverages.Remove(toFind);
+            db.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
