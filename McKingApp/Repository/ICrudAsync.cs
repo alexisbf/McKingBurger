@@ -11,7 +11,7 @@ namespace McKingApp.Repository
         public Task DeleteAsync(int id);
         public Task UpdateAsync(T obj);
         public Task<T> ReadAsync (int id);
-        public IQueryable<T> ReadAll();
+       public IQueryable<T> ReadAll();
 
     }
 }
