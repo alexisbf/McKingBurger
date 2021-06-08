@@ -1,5 +1,5 @@
-﻿using Dal;
-using DomainModel;
+﻿using DomainModel;
+using McKingApp.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,21 +11,21 @@ namespace McKingApp.Controllers
 {
     public class BeverageController : Controller
     {
-        private McKingBurgerContext db;
-        public BeverageController(McKingBurgerContext db)
+        private ICrud<Beverage> repository;
+        public BeverageController(ICrud<Beverage> repository)
         {
-            this.db = db;
+            this.repository = repository;
         }
         // GET: BeverageController
         public ActionResult Index()
         {
-            return View(this.db.Beverages is null ? new List<Beverage>() : this.db.Beverages.ToList());
+            return View(this.repository.ReadAll() is null ? new List<Beverage>() : this.repository.ReadAll().ToList());
         }
 
         // GET: BeverageController/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int id)
         {
-            return View(this.db.Beverages.Find(id));
+            return View(this.repository.Read(id));
         }
 
         // GET: BeverageController/Create
@@ -41,8 +41,7 @@ namespace McKingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Beverages.Add(beverage);
-                db.SaveChanges();
+                repository.Create(beverage);
                 return RedirectToAction(nameof(Index));
 
             }
@@ -52,7 +51,7 @@ namespace McKingApp.Controllers
         // GET: BeverageController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(db.Beverages.Find(id));
+            return View(repository.Read(id));
         }
 
         // POST: BeverageController/Edit/5
@@ -62,8 +61,7 @@ namespace McKingApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Beverages.Update(beverage);
-                db.SaveChanges();
+                repository.Update(beverage);
                 return RedirectToAction(nameof(Index));
             }
             return View(beverage);
@@ -72,7 +70,7 @@ namespace McKingApp.Controllers
         // GET: BeverageController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(this.db.Beverages.Find(id));
+            return View(repository.Read(id));
         }
 
         // POST: BeverageController/Delete/5
@@ -80,9 +78,7 @@ namespace McKingApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, Beverage beverage)
         {
-            Beverage toFind = this.db.Beverages.Find(id);
-            db.Beverages.Remove(toFind);
-            db.SaveChanges();
+            repository.Delete(id);
             return RedirectToAction(nameof(Index));
         }
     }

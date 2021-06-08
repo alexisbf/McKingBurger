@@ -28,7 +28,10 @@ namespace McKingApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<ICrud<Menu>, MenuRepository>();
-            
+            services.AddScoped<ICrud<Beverage>, BeverageRepository>();
+            services.AddScoped<ICrud<Burger>, BurgerRepository>();
+
+
             services.AddDbContext<McKingBurgerContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("McKingBurgerDatabase")));
             services.AddControllersWithViews();
