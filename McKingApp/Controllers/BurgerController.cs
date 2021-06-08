@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DomainModel;
+using McKingApp.Repository;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,16 +11,23 @@ namespace McKingApp.Controllers
 {
     public class BurgerController : Controller
     {
+        private ICrudAsync<Burger> repository;
+        public BurgerController(ICrudAsync<Burger> repository)
+        {
+            this.repository = repository;
+        }
+        
         // GET: BurgerController
         public ActionResult Index()
         {
-            return View();
+            return View(this.repository.ReadAll() is null ? new List<Burger>() : this.repository.ReadAll().ToList());
         }
 
         // GET: BurgerController/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var read = await repository.ReadAsync(id);
+            return View(read);
         }
 
         // GET: BurgerController/Create

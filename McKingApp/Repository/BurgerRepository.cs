@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace McKingApp.Repository
 {
-    public class BurgerRepository : ICrud<Burger>
+    public class BurgerRepository : ICrudAsync<Burger>
     {
         private McKingBurgerContext context;
         public BurgerRepository(McKingBurgerContext context)
@@ -28,9 +28,10 @@ namespace McKingApp.Repository
             this.context.SaveChanges();
         }
 
-        public Burger Read(int id)
+        public async Task<Burger> ReadAsync(int id)
         {
-            return this.context.Burgers.Find(id);
+            var read = await context.Burgers.FindAsync(id);
+            return read;
         }
 
         public IQueryable<Burger> ReadAll() => this.context.Burgers;
@@ -39,6 +40,6 @@ namespace McKingApp.Repository
         {
             this.context.Burgers.Update(burger);
             this.context.SaveChanges();
-        }
+        }       
     }
 }
