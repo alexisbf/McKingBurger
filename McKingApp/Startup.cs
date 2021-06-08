@@ -12,6 +12,7 @@ using Dal;
 using Microsoft.EntityFrameworkCore;
 using McKingApp.Repository;
 using DomainModel;
+using McKingApp.Binders;
 
 namespace McKingApp
 {
@@ -30,7 +31,10 @@ namespace McKingApp
             services.AddScoped<ICrud<Menu>, MenuRepository>();
             services.AddScoped<ICrud<Beverage>, BeverageRepository>();
             services.AddScoped<ICrud<Burger>, BurgerRepository>();
-
+            services.AddControllersWithViews(conf =>
+            {
+                conf.ModelBinderProviders[4] = new FloatingTypeModelBinderProvider();
+            });
 
             services.AddDbContext<McKingBurgerContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("McKingBurgerDatabase")));
