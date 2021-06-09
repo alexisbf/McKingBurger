@@ -1,0 +1,69 @@
+﻿@model IEnumerable<DomainModel.Product>
+@using McKingApp.Repository.Services
+@inject ProductService burger
+@inject ProductService beverage
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stockpiled)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (var item in burger.GetBurgers())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(burgerItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(burgerItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(burgerItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(burgerItem => item.Stockpiled)
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tbody>
+        @foreach (var item in beverage.GetBeverages())
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(beverageItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(beverageItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(beverageItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(beverageItem => item.Stockpiled)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

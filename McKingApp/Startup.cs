@@ -14,6 +14,7 @@ using McKingApp.Repository;
 using DomainModel;
 using McKingApp.Binders;
 using McKingApp.Repository.Interfaces;
+using McKingApp.Repository.Services;
 
 namespace McKingApp
 {
@@ -32,6 +33,7 @@ namespace McKingApp
             services.AddScoped<ICrud<Menu>, MenuRepository>();
             services.AddScoped<ICrud<Beverage>, BeverageRepository>();
             services.AddScoped<ICrudAsync<Burger>, BurgerRepository>();
+            services.AddTransient<ProductService>();
             services.AddControllersWithViews(conf =>
             {
                 conf.ModelBinderProviders[4] = new FloatingTypeModelBinderProvider();
