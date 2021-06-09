@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace McKingApp.Repository
+namespace McKingApp.Repository.Interfaces
 {
     public interface ICrud<T>
     {

@@ -1,5 +1,6 @@
 ﻿using Dal;
 using DomainModel;
+using McKingApp.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace McKingApp.Repository
 
         public Menu Read(int id)
         {
-            throw new NotImplementedException();
+            return this.context.Menus.Find(id);
         }
 
         public IQueryable<Menu> ReadAll()
@@ -36,7 +37,6 @@ namespace McKingApp.Repository
             return this.context.Menus
                 .Include(m => m.Burger)
                 .Include(m => m.Beverage)
-                .Include(m => m.Description)
                 .Include(m => m.Dessert);
         }
 

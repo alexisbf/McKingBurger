@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using McKingApp.Repository.Interfaces;
 
 namespace McKingApp.Repository
 {
@@ -25,6 +26,8 @@ namespace McKingApp.Repository
         public void Delete(int id)
         {
             Beverage beverage = this.context.Beverages.Find(id);
+            var tempMenus = this.context.Menus.Where(m => m.Id == id).ToList();
+            tempMenus.ForEach(value => context.Menus.Remove(value));
             this.context.Beverages.Remove(beverage);
             this.context.SaveChanges();
         }

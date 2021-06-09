@@ -1,5 +1,6 @@
 ﻿using Dal;
 using DomainModel;
+using McKingApp.Repository.Interfaces;
 using Microsoft.Win32.SafeHandles;
 using System;
 using System.Collections.Generic;

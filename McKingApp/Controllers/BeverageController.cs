@@ -1,5 +1,5 @@
 ﻿using DomainModel;
-using McKingApp.Repository;
+using McKingApp.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using McKingApp.Repository;
 using DomainModel;
 using McKingApp.Binders;
+using McKingApp.Repository.Interfaces;
 
 namespace McKingApp
 {

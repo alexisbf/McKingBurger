@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using DomainModel.ValidationAttributes;
 
 namespace DomainModel
 {
@@ -15,6 +16,8 @@ namespace DomainModel
         [Required]
         public decimal Price { get; set; }
         public string Description { get; set; }
+
+        [PositiveNumber]
         public int Stockpiled { get; set; }
     }
 }
