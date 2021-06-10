@@ -9,6 +9,9 @@
 
 <h1>Index</h1>
 
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -31,8 +34,8 @@
         
         @foreach (var item in burger.GetBurgers())
         {
-            <tr>
-                <td>
+        <tr>
+            <td>
                     @Html.DisplayFor(burgerItem => item.Name)
                 </td>
                 <td>
@@ -43,7 +46,7 @@
                 </td>
                 <td>
                     @Html.DisplayFor(burgerItem => item.Stockpiled)
-                </td>
+            </td>
             </tr>
         }
     </tbody>
@@ -51,19 +54,19 @@
         @foreach (var item in beverage.GetBeverages())
         {
             <tr>
-                <td>
+            <td>
                     @Html.DisplayFor(beverageItem => item.Name)
-                </td>
-                <td>
+            </td>
+            <td>
                     @Html.DisplayFor(beverageItem => item.Price)
-                </td>
-                <td>
+            </td>
+            <td>
                     @Html.DisplayFor(beverageItem => item.Description)
-                </td>
-                <td>
+            </td>
+            <td>
                     @Html.DisplayFor(beverageItem => item.Stockpiled)
-                </td>
-            </tr>
-        }
+            </td>
+        </tr>
+}
     </tbody>
 </table>

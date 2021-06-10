@@ -11,6 +11,7 @@ namespace Dal
         public DbSet<Side> Sides { get; set; }
         public DbSet<Dessert> Desserts { get; set; }
         public DbSet<Burger> Burgers { get; set; }
+        public DbSet<Product> Products { get; set; }
 
         public McKingBurgerContext()
             : base()
